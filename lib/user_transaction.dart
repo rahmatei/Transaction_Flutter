@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:app/add_Transaction.dart';
 import 'package:app/transaction.dart';
@@ -16,8 +14,8 @@ class _UserTransactionState extends State<UserTransaction> {
     Transaction('2', 'umberela', 13, DateTime.now()),
     Transaction('3', 'gift', 20, DateTime.now())
   ];
-  void addNewTransaction() {
-    Transaction tr = new Transaction(DateTime.now().toString(), 'SDSD', 55.5, DateTime.now());
+  void addNewTransaction( String title , double amount) {
+    Transaction tr = new Transaction(DateTime.now().toString(), title, amount, DateTime.now());
     setState(() {
           trns.add(tr);
     });
@@ -26,7 +24,9 @@ class _UserTransactionState extends State<UserTransaction> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [AddTransaction(addNewTransaction), TransationList(transactionList: trns)],
+      children: [
+         AddTransaction(addTrns: addNewTransaction,),
+         TransationList(transactionList: trns)],
     );
   }
 }

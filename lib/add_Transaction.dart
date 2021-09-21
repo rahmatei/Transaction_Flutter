@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AddTransaction extends StatelessWidget {
   final Function addTrns;
-  AddTransaction(this.addTrns);
+  AddTransaction({required this.addTrns});
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +31,7 @@ class AddTransaction extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
-                  onPressed: () {
-                    addTrns();
-                  },
+                  onPressed: ()=>addTrns(_title.text,double.parse(_amount.text)),// addTrns,
                   child: Text(
                     'Add Transaction',
                     style: TextStyle(color: Colors.purple),
