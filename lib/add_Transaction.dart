@@ -4,10 +4,20 @@ class AddTransaction extends StatelessWidget {
   final Function addTrns;
   AddTransaction({required this.addTrns});
 
+  final TextEditingController _title = TextEditingController();
+  final TextEditingController _amount = TextEditingController();
+
+  void submitedData() {
+    String strTitle = _title.text;
+    double amount = double.parse(_amount.text);
+    if (strTitle.isEmpty || amount <= 0) {
+      return;
+    }
+    addTrns(strTitle, amount);
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController _title = TextEditingController();
-    TextEditingController _amount = TextEditingController();
     return Card(
       elevation: 5,
       child: Container(
@@ -20,6 +30,7 @@ class AddTransaction extends StatelessWidget {
                 labelText: 'Title',
               ),
               controller: _title,
+              onSubmitted: (_) => submitedData,
             ),
             TextField(
               decoration: InputDecoration(
@@ -27,11 +38,12 @@ class AddTransaction extends StatelessWidget {
               ),
               controller: _amount,
               keyboardType: TextInputType.number,
+              onSubmitted: (_) => submitedData(),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
-                  onPressed: ()=>addTrns(_title.text,double.parse(_amount.text)),// addTrns,
+                  onPressed: () => submitedData(), // addTrns,
                   child: Text(
                     'Add Transaction',
                     style: TextStyle(color: Colors.purple),
