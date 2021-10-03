@@ -2,6 +2,7 @@ import 'package:app/add_Transaction.dart';
 import 'package:flutter/material.dart';
 import 'transaction_list.dart';
 import 'transaction.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -17,14 +18,16 @@ class _MyAppState extends State<MyApp> {
     Transaction('2', 'umberela', 13, DateTime.now()),
     Transaction('3', 'gift', 20, DateTime.now())
   ];
-  void addNewTransaction( String title , double amount) {
-    Transaction tr = new Transaction(DateTime.now().toString(), title, amount, DateTime.now());
+  void addNewTransaction(String title, double amount) {
+    Transaction tr = new Transaction(
+        DateTime.now().toString(), title, amount, DateTime.now());
     setState(() {
-          trns.add(tr);
+      trns.add(tr);
     });
   }
+
   showbottom(BuildContext ctx) {
-    return showBottomSheet(
+    return showModalBottomSheet(
         context: ctx,
         builder: (_) {
           return AddTransaction(addTrns: addNewTransaction);
@@ -60,7 +63,11 @@ class _MyAppState extends State<MyApp> {
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
               onPressed: () {
-             showbottom(context);
+                GestureDetector(
+                  onTap: () {},
+                  behavior: HitTestBehavior.opaque,
+                  child: showbottom(context),
+                );
               },
               child: Icon(Icons.add),
               shape: BeveledRectangleBorder(
